@@ -1,0 +1,4 @@
+django
+dnspython
+tzdata
+motor
