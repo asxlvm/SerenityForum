@@ -25,6 +25,9 @@
         <meta property="twitter:title" content="Serenity Forums - Coding Forum">
         <meta property="twitter:description" content="Promote your projects, tools and code, ask for help in your project, no matter what they're about!">
 
+        <!-- JQuery -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
         <!-- Google Icon Font-->
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
@@ -34,21 +37,27 @@
         <!-- Materialize JavaScript -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 
-        <!-- My CSS -->
-        <link rel="stylesheet" href="{{ STATIC_URL }}home.css">
+        <!-- My CSS & JS-->
+        <link rel="stylesheet" href="/static/SerenityForum/home.css">
+        <script src="/static/SerenityForum/home.js"></script>
     </head>
     <body>
-        <div class="container">
-            <nav>
-                <div class="nav-wrapper purple darken-1">
-                    <a href="#" class="brand-logo">Serenity</a>
-                    <ul id="nav-mobile" class="right hide-on-med-and-down">
-                        <li><a href="#">Home</a></li>
-                        <li><a href="#">Categories</a></li>
-                        <li><a href="#">About</a></li>
-                    </ul>
-                </div>
-            </nav>
-        </div>
+        <nav>
+            <div class="nav-wrapper purple darken-1">
+                <a href="#" class="brand-logo center" style="padding-left:2%;">Serenity</a>
+                <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+
+                <ul id="nav-mobile" class="right hide-on-med-and-down">
+                    <li><a href="#"><i class="material-icons left">home</i>Home</a></li>
+                    <li><a href="sass.html"><i class="material-icons left">view_module</i>Categories</a></li>
+                    <li><a href="sass.html"><i class="material-icons left">info</i>About</a></li>
+                </ul>
+            </div>
+        </nav>
+        <ul class="sidenav" id="mobile-demo">
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Categories</a></li>
+            <li><a href="#">About</a></li>
+        </ul>
     </body>
 </html>
