@@ -1,10 +1,13 @@
 from django.db import models
 import uuid
+import time
 
 class UserRole(models.Model):
     name = models.CharField(max_length=20)
     color = models.CharField(default="#333333", max_length=9)
     numberofusers = models.IntegerField(default=0)
+    def __str__():
+        return self.name
 
 class Category(models.Model):
     posts = models.ForeignKey('Post', null = False, on_delete=models.CASCADE)
@@ -15,10 +18,13 @@ class Category(models.Model):
 
 class Download(models.Model):
     downloadlink = models.URLField(max_length=100)
+    def __str__():
+        return self.downloadlink
 
 class Comment(models.Model):
     author = models.ForeignKey('User', null = False, on_delete=models.CASCADE)
     text = models.CharField(max_length=100, default="This is an empty comment.")
+    createdat = models.BigIntegerField(default=time.time)
 
 class Post(models.Model):
     author = models.ForeignKey('User', null = False, on_delete=models.CASCADE)
@@ -29,6 +35,7 @@ class Post(models.Model):
     downloads = models.ForeignKey('Download', null = False, on_delete=models.CASCADE)
     postcategory = models.ForeignKey('Category', null = False, on_delete=models.CASCADE)
     upvotes = models.IntegerField(default=0)
+    createdat = models.BigIntegerField(default=time.time)
 
 class User(models.Model):
     username = models.CharField(max_length=25)
@@ -39,5 +46,6 @@ class User(models.Model):
     userposts = models.ForeignKey('Post', null = False, on_delete=models.CASCADE)
     password = models.CharField(max_length=200)
     token = models.CharField(max_length=100)
+    createdat = models.BigIntegerField(default=time.time)
     role = models.ForeignKey('UserRole', null = False, on_delete=models.CASCADE)
     banned = models.BooleanField(default=False)
