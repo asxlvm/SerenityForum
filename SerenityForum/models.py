@@ -38,7 +38,7 @@ class Post(models.Model):
     createdat = models.BigIntegerField(default=time.time)
 
 class User(models.Model):
-    username = models.CharField(max_length=25)
+    username = models.CharField(max_length=25, unique=True)
     userid = models.UUIDField(default=uuid.uuid4, unique=True, editable=False)
     userbio = models.CharField(max_length=500, default="This user has not modified his bio.")
     userupvotes = models.IntegerField(default=0)
