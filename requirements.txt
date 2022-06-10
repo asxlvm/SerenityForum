@@ -3,3 +3,4 @@ dnspython
 tzdata
 motor
 uuid
+django-ratelimit

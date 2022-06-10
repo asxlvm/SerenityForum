@@ -5,5 +5,9 @@ urlpatterns = [
     path('', views.home),
     path("categories/<str:categoryname>", views.categoryview),
     path("login/", views.login),
-    path("register/", views.register)
+    path("signup/", views.register),
+    path("api/register/", views.registerapi),
+    path("api/login", views.loginapi),
+    path("api/getuser/<str:username>", views.getuser),
+    path("api/selfinfo", views.getmyself)
 ]

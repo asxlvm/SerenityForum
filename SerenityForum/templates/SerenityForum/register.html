@@ -40,6 +40,7 @@
         <!-- My CSS & JS-->
         <link rel="stylesheet" href="/static/SerenityForum/home.css">
         <script src="/static/SerenityForum/home.js"></script>
+        <script src="/static/SerenityForum/signup.js"></script>
     </head>
     <body>
         <nav>
@@ -60,23 +61,39 @@
             <li><a href="/signup">Sign-up</a></li>
         </ul>
         <div class="container">
-            {% for category in categories %}
-                
+            <div style="padding-top:4%"></div>
                 <div class="row">
-                    <div class="col s12 m6">
-                        <div class="card purple darken-3">
-                            <div class="card-content white-text">
-                                <a style="color:#eeeeee" class="card-title" href="/categories/{{ category.title }}">{{ category.title }}</a>
-                                <p>{{ category.description|truncatechars:40 }}<br />Number of posts: {{ category.numberofposts }}</p>
+                    <form class="col s12" id="regForm" action="" method="post" name="form" target="_blank">
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="input-field col s6">
+                                <i class="material-icons prefix white-text">account_circle</i>
+                                <input id="username" name="username" type="text" class="validate" style="color:#ffffff">
+                                <label for="username">First Name</label>
                             </div>
-                            <div class="card-action">
-                                <a style="color:#ee22ff" href="/categories/{{ category.title }}">Go to category</a>
+                            <div class="input-field col s6">
+                                <i class="material-icons prefix white-text">input</i>
+                                <input id="email" name="email" type="email" class="validate" style="color:#ffffff">
+                                <label for="email">Email</label>
                             </div>
                         </div>
-                    </div>
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <i class="material-icons prefix white-text">lock</i>
+                                <input id="password" name="password" type="password" class="validate" style="color:#ffffff">
+                                <label for="password">Password</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <button class="btn-large waves-effect waves-light purple darken-1 col s5 offset-s4" id="registerFormBtn" type="submit" name="action">Submit
+                                <i class="material-icons right">send</i>
+                            </button>
+                        </div>
+                        <div class="collection" id="errorDiv" style="display:none">
+                            <div class="collection-item active red darken-1">Error<br />Status code: NONE</div>
+                        </div>
+                    </form>
                 </div>
-            
-            {% endfor %}
         </div>
     </body>
 </html>
