@@ -64,13 +64,14 @@ def loginapi(request):
     bodyJson = json.loads(request.body)
     passwordUnhashed = bodyJson["password"]
     username = bodyJson["username"]
-    user = User.objects.filter(username=username)
-    if len(user) == 0:
+    users = User.objects.filter(username=username)
+    if len(users) == 0:
         toReturn = {
             "message": "This user does not exist",
             "status": "USER_NOT_FOUND"
         }
         return JsonResponse(toReturn, status=HTTPStatus.NOT_FOUND)
+    user = users[0]
     password = hashlib.sha256(passwordUnhashed.encode("UTF-8")).hexdigest()
     if user.password != password:
         toReturn = {
