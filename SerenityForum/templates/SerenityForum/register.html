@@ -57,8 +57,21 @@
         </nav>
         <ul class="sidenav" id="mobile-demo">
             <li><a href="/">Home</a></li>
-            <li><a href="/login">Login</a></li>
-            <li><a href="/signup">Sign-up</a></li>
+            {% if user == None %}
+                <li><a href="/login">Login</a></li>
+                <li><a href="/signup">Sign-up</a></li>
+            {% elif user %}
+                <ul class="collection">
+                    <li class="collection-item avatar">
+                    <img src="images/yuna.jpg" alt="" class="circle">
+                    <span class="title">{ user['username'] }</span>
+                    <p>First Line <br>
+                        Second Line
+                    </p>
+                    <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
+                    </li>
+                </ul>
+            {% endif %}
         </ul>
         <div class="container">
             <div style="padding-top:4%"></div>
@@ -82,6 +95,13 @@
                                 <i class="material-icons prefix white-text">lock</i>
                                 <input id="password" name="password" type="password" class="validate" style="color:#ffffff">
                                 <label for="password">Password</label>
+                            </div>
+                        </div>
+                        <div class="row" id="reservationRow" style="display:none">
+                            <div class="input-field col s12">
+                                <i class="material-icons prefix white-text">account_circle</i>
+                                <input id="reservationkey" name="reservationkey" type="text" class="validate" style="color:#ffffff">
+                                <label for="reservationkey">Reservation Key</label>
                             </div>
                         </div>
                         <div class="row">

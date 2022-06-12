@@ -3,9 +3,10 @@ from django.template import loader
 import json
 import string
 from http import HTTPStatus
-from .models import User, UserRole, Post, Comment, Download, Category
+from .models import User, UserRole, Post, Comment, Download, Category, ReservedUsername
 import hashlib
 from django.views.decorators.csrf import csrf_exempt
+from django.forms.models import model_to_dict
 
 def get_client_ip(request):
     x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
@@ -34,23 +35,53 @@ def categoryview(request, categoryname):
 
 def login(request):
     template = loader.get_template("SerenityForum/login.html")
-    ctx = {}
+    ctx = {
+        "user": getmyself(request)["user"]
+    }
     return HttpResponse(template.render(ctx, request))
 
 def register(request):
     template = loader.get_template("SerenityForum/register.html")
-    ctx = {}
+    ctx = {
+        "user": getmyself(request)["user"]
+    }
     return HttpResponse(template.render(ctx, request))
 
 @csrf_exempt
 def getuser(request, username):
     # token = request.session["token"]
-    user = User.objects.filter(username=username)
-    # if user.
+    users = User.objects.filter(username=username)
+    if len(users) == 0:
+        toReturn = {
+            "message": "This user does not exist!",
+            "status": "USER_NOT_FOUND",
+            "user": None
+        }
 
-@csrf_exempt
 def getmyself(request):
-    token = request.session["token"]
+    token = request.session.get("token", "")
+    if not token:
+        toReturn = {
+            "message": "You aren't logged in!",
+            "status": "NOT_LOGGED_IN",
+            "user": None
+        }
+        return toReturn
+    users = User.objects.filter(token=token)
+    if len(users) == 0:
+        toReturn = {
+            "message": "Invalid token!",
+            "status": "INVALID_TOKEN",
+            "user": None
+        }
+        return toReturn
+    user = json.dumps(model_to_dict(users[0]))
+    toReturn = {
+        "message": "",
+        "status": "SUCCESS",
+        "user": user
+    }
+    return toReturn
 
 @csrf_exempt
 def loginapi(request):
@@ -141,6 +172,23 @@ def registerapi(request: HttpRequest):
             "status": "TAKEN_IP"
         }
         return JsonResponse(toReturn, status=HTTPStatus.BAD_REQUEST)
+    reservations = ReservedUsername.objects.filter(username=username)
+    if len(reservations) > 0:
+        if bodyJson["reservationkey"] != reservations[0].reservationkey:
+            toReturn = {
+                "message": "This username is a reserved username, if you are the person it was reserved to, enter your reservation key in the newly unlocked text input.",
+                "status": "RESERVED_USERNAME"
+            }
+            return JsonResponse(toReturn, status=HTTPStatus.BAD_REQUEST)
+        elif reservations[0].used:
+            toReturn = {
+                "message": "This username was a reserved username, which has already been used.",
+                "status": "USED_RESERVED_USERNAME"
+            }
+            return JsonResponse(toReturn, status=HTTPStatus.BAD_REQUEST)
+        else:
+            reservations[0].used = True
+
     role = UserRole.objects.filter(name="Registered")[0]
     password = hashlib.sha256(passwordUnhashed.encode("UTF-8")).hexdigest()
     token = hashlib.sha256((username + "." + password).encode("UTF-8")).hexdigest()

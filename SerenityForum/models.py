@@ -51,3 +51,8 @@ class User(models.Model):
     banned = models.BooleanField(default=False)
     ip = models.GenericIPAddressField(default="255.255.255.255")
     email = models.EmailField(default="your@email.com")
+
+class ReservedUsername(models.Model):
+    username = models.CharField(max_length=25, unique=True)
+    reservationkey = models.CharField(max_length=25)
+    used = models.BooleanField(default=False)
