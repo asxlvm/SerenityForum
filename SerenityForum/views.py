@@ -35,15 +35,19 @@ def categoryview(request, categoryname):
 
 def login(request):
     template = loader.get_template("SerenityForum/login.html")
+    user = getmyself(request)["user"]
     ctx = {
-        "user": getmyself(request)["user"]
+        "user": user,
+        "loggedin": False if user == None else True
     }
     return HttpResponse(template.render(ctx, request))
 
 def register(request):
     template = loader.get_template("SerenityForum/register.html")
+    user = getmyself(request)["user"]
     ctx = {
-        "user": getmyself(request)["user"]
+        "user": user,
+        "loggedin": False if user == None else True
     }
     return HttpResponse(template.render(ctx, request))
 
@@ -75,11 +79,10 @@ def getmyself(request):
             "user": None
         }
         return toReturn
-    user = json.dumps(model_to_dict(users[0]))
     toReturn = {
         "message": "",
         "status": "SUCCESS",
-        "user": user
+        "user": users[0]
     }
     return toReturn
 
@@ -109,7 +112,7 @@ def loginapi(request):
             "message": "Incorrect password, try again!",
             "status": "INCORRECT_PASSWD"
         }
-        return JsonResponse(toReturn, HTTPStatus.UNAUTHORIZED)
+        return JsonResponse(toReturn, status=HTTPStatus.UNAUTHORIZED)
     if user.banned:
         toReturn = {
             "message": "This account has been banned!",

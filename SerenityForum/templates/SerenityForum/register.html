@@ -43,35 +43,35 @@
         <script src="/static/SerenityForum/signup.js"></script>
     </head>
     <body>
-        <nav>
+        <nav {% if loggedin is not None %} 
+                style="height:14vh"
+                {% endif %}>
             <div class="nav-wrapper purple darken-1">
-                <a href="#" class="brand-logo center" style="padding-left:2%;">Serenity</a>
+                <a href="#" class="brand-logo center" style="padding-left:2%;{% if loggedin is not None %}font-size:400%;top:10%{% endif %}">Serenity</a>
                 <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
 
                 <ul id="nav-mobile" class="right hide-on-med-and-down">
                     <li><a href="/"><i class="material-icons left">home</i>Home</a></li>
-		    <li><a href="/login"><i class="material-icons left">key</i>Login</a></li>
-                    <li><a href="/signup"><i class="material-icons left">key</i>Sign-up</a></li>
+                    {% if loggedin is None %}
+                        <li><a href="/login"><i class="material-icons left">key</i>Login</a></li>
+                        <li><a href="/signup"><i class="material-icons left">key</i>Sign-up</a></li>
+                    {% else %}
+                        <ul class="collection purple darken-1" style="border:none;width:25vw">
+                            <li class="collection-item avatar purple darken-1">
+                                <img src="{{ user.userpfp }}" alt="" class="circle">
+                                <span class="title">{{ user.username }}</span>
+                                <p>Upvotes: {{ user.userupvotes }} - <span style="color:{{ user.role.color }};text-shadow:1px 0px 7px #ffffff">{{ user.role.name }}</span></p>
+                                
+                            </li>
+                        </ul>
+                    {% endif %}
                 </ul>
             </div>
         </nav>
         <ul class="sidenav" id="mobile-demo">
             <li><a href="/">Home</a></li>
-            {% if user == None %}
-                <li><a href="/login">Login</a></li>
-                <li><a href="/signup">Sign-up</a></li>
-            {% elif user %}
-                <ul class="collection">
-                    <li class="collection-item avatar">
-                    <img src="images/yuna.jpg" alt="" class="circle">
-                    <span class="title">{ user['username'] }</span>
-                    <p>First Line <br>
-                        Second Line
-                    </p>
-                    <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
-                    </li>
-                </ul>
-            {% endif %}
+            <li><a href="/login"><i class="material-icons left">key</i>Login</a></li>
+            <li><a href="/signup"><i class="material-icons left">key</i>Sign-up</a></li>
         </ul>
         <div class="container">
             <div style="padding-top:4%"></div>
