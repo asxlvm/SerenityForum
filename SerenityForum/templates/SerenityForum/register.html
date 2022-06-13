@@ -44,7 +44,7 @@
     </head>
     <body>
         <nav {% if loggedin is not None %} 
-                style="height:14vh"
+                style="min-height:14vh"
                 {% endif %}>
             <div class="nav-wrapper purple darken-1">
                 <a href="#" class="brand-logo center" style="padding-left:2%;{% if loggedin is not None %}font-size:400%;top:10%{% endif %}">Serenity</a>
@@ -52,7 +52,7 @@
 
                 <ul id="nav-mobile" class="right hide-on-med-and-down">
                     <li><a href="/"><i class="material-icons left">home</i>Home</a></li>
-                    {% if loggedin is None %}
+                    {% if loggedin is False %}
                         <li><a href="/login"><i class="material-icons left">key</i>Login</a></li>
                         <li><a href="/signup"><i class="material-icons left">key</i>Sign-up</a></li>
                     {% else %}
