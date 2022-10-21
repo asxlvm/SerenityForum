@@ -25,7 +25,13 @@ SECRET_KEY = 'django-insecure-vb85tvolv686m@g^)vk9v&1)afgk5c+nj7&f8a0c7dio9#y14v
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [".ngrok.io", "127.0.0.1", "localhost", "serenityforums.cf"]
+ALLOWED_HOSTS = [".ngrok.io", "127.0.0.1", "localhost", "serenityforums.cf", ".repl.co"]
+CSRF_ORIGIN_WHITELIST = [
+    'https://serenityforums.asylumekk.repl.co'
+]
+CSRF_TRUSTED_ORIGINS = [
+    'https://serenityforums.asylumekk.repl.co',
+]
 
 
 # Application definition

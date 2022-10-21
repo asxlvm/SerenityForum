@@ -6,6 +6,7 @@ urlpatterns = [
     path("categories/<str:categoryname>/", views.categoryview),
     path("login/", views.login),
     path("signup/", views.register),
+    path("post/<str:postid>/", views.showpost),
     path("api/register/", views.registerapi),
     path("api/login/", views.loginapi),
     path("api/getuser/<str:username>/", views.getuser),

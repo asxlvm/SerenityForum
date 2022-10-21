@@ -1,0 +1,82 @@
+<html>
+    <head>
+        <!-- Default Meta Tags -->
+        <meta name="title" content="Serenity Forums - {{ post.title|slice:':15' }}...">
+        <meta name="description" content="{{ post.description|slice:':50' }}">
+        <meta name="keywords" content="coding, serenity, forums, code">
+        <meta name="robots" content="noindex, nofollow">
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <meta name="language" content="English">
+        <meta name="revisit-after" content="1 days">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+        <!-- Primary Meta Tags -->
+        <title>Serenity Forums - {{ category.title }}</title>
+        <meta name="title" content="Serenity Forums - {{ post.title|slice:':15' }}...">
+        <meta name="description" content="{{ post.description|slice:':50' }}">
+
+        <!-- Open Graph / Facebook -->
+        <meta property="og:type" content="website">
+        <meta property="og:title" content="Serenity Forums - {{ post.title|slice:':15' }}...">
+        <meta property="og:description" content="{{ post.description|slice:':50' }}">
+        
+        <!-- Twitter -->
+        <meta property="twitter:card" content="summary_large_image">
+        <meta property="twitter:title" content="Serenity Forums - {{ post.title|slice:':15' }}...">
+        <meta property="twitter:description" content="{{ post.description|slice:':50' }}">
+
+        <!-- JQuery -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+        <!-- Google Icon Font-->
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+        <!-- Materialize CSS -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+        <!-- Materialize JavaScript -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+        <!-- My CSS & JS-->
+        <link rel="stylesheet" href="/static/SerenityForum/home.css">
+        <script src="/static/SerenityForum/home.js"></script>
+    </head>
+    <body>
+        <nav>
+            <div class="nav-wrapper purple darken-1">
+                <a href="/" class="brand-logo center" style="padding-left:2%;">Serenity</a>
+                <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+
+                <ul id="nav-mobile" class="right hide-on-med-and-down">
+                    <li><a href="/"><i class="material-icons left">home</i>Home</a></li>
+		    <li><a href="/login"><i class="material-icons left">key</i>Login</a></li>
+                    <li><a href="/signup"><i class="material-icons left">key</i>Sign-up</a></li>
+                </ul>
+            </div>
+        </nav>
+        <ul class="sidenav" id="mobile-demo">
+            <li><a href="/">Home</a></li>
+            {}
+            <li><a href="/login">Login</a></li>
+            <li><a href="/signup">Sign-up</a></li>
+        </ul>
+        <div class="container">
+            <div class="nav-wrapper" style="padding-top:2%">
+                <div class="col s12">
+                    <a href="/" class="breadcrumb">Home</a>
+                    <a href="/categories/{{ category.title }}" class="breadcrumb">{{ category.title }}</a>
+                    <a href="#" class="breadcrumb">{{ post.title|slice:':10'}}...</a>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s12 m6">
+                    <h1 style="color:#cccccc;">{{ post.title }}</h1>
+                    <p style="color:#cccccc;">Author: {{ post.author.username }}<br />Upvotes: {{ post.upvotes }}</p>
+                    <p style="color:#eeeeee;font-size:20px">{{ post.description}}
+                        
+                    </p>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

@@ -51,6 +51,15 @@ def register(request):
     }
     return HttpResponse(template.render(ctx, request))
 
+def showpost(request, postid):
+    template = loader.get_template("SerenityForum/post.html")
+    post = Post.objects.filter(postid=postid)[0]
+    ctx = {
+        "post": post,
+        "category": post.postcategory
+    }
+    return HttpResponse(template.render(ctx, request))
+
 @csrf_exempt
 def getuser(request, username):
     # token = request.session["token"]
