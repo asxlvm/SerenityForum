@@ -1,7 +1,8 @@
 #!/bin/bash
 
 export MONGOURI="mongodb+srv://asxlvm:A6wRgGs5INzVXdYw@cluster0.nm2p7.mongodb.net"
-if $1 == "" then
+
+if [ -z $1 ] then
  export PORT="8080"
 else
  export PORT=$1
