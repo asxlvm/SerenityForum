@@ -2,11 +2,7 @@
 
 export MONGOURI="mongodb+srv://asxlvm:A6wRgGs5INzVXdYw@cluster0.nm2p7.mongodb.net"
 
-if [ -z $1 ] then
- export PORT="8080"
-else
- export PORT=$1
-fi
+export PORT=$1
 
 echo "[INFO] Exported environment variables, starting ($(TZ='Europe/Prague' date) - $(TZ='Europe/Prague' date +%s))"
 
