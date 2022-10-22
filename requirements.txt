@@ -4,3 +4,4 @@ tzdata
 motor
 uuid
 django-ratelimit
+django_heroku
