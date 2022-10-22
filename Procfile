@@ -1,1 +1,1 @@
-web: ./startserverbash
+web: ./startserver.bash
